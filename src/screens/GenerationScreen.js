@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { FlatList, ScrollView, View } from "react-native";
+import { FlatList, View } from "react-native";
 import PokemonItem from "../components/PokemonItem";
 import { useNavigation } from "@react-navigation/native";
 

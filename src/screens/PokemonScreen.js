@@ -107,13 +107,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
     },
     type: {
-        width: 50,
-        height: 50,
-        marginLeft: 5,
-        marginRight: 5,
+        width: 40,
+        aspectRatio: 1,
+        margin: 5,
     },
     typetext : {
         height: '100%',
+        width: 75,
         textAlignVertical: 'center',
         borderRightWidth: 2,
     },
