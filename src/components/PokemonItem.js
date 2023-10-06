@@ -14,22 +14,23 @@ export default function PokemonItem({ pokemon }) {
     useEffect(() => {
         if (pokemon != null)
             getColor();
-    }, pokemon);
+    }, [pokemon]);
 
     return (
-        <View style={[styles.container, { backgroundColor: color }]}>
-            <Pressable onPress={() => navigation.navigate('Pokemon', { id: pokemon.pokedexId })}>
+        <View style={[styles.container, { backgroundColor: color+'aa' }]}>
+            <Pressable onPress={() => navigation.navigate('Pokemon', { pokemon: pokemon})}>
                 <View style={styles.button}>
                     <View>
-                        <Text>
-                            {pokemon.pokedexId}
+                        <Text style={styles.id}>
+                            #{pokemon.pokedexId}
                         </Text>
-                        <Text>
+                        <Text style={styles.name}>
                             {pokemon.name.fr}
                         </Text>
                         <View style={styles.view}>
                             {pokemon.types.map((type) => {
-                                return <Text style={styles.type} key={type.name}>{type.name}</Text>
+                                const typeColor = colors[type.name];
+                                return <Text style={[styles.type, {backgroundColor : typeColor}]} key={type.name}>{type.name}</Text>
                             })}
                         </View>
                     </View>
@@ -44,10 +45,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-        margin: 5,
+        marginVertical: 10,
+        marginHorizontal: 15,
         height: 125,
-        borderWidth: 1,
-        borderColor: 'black',
         borderRadius: 10,
         backgroundopacity: 0.5,
     },
@@ -58,23 +58,32 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
+    id: {
+        fontSize: 13,
+        fontWeight: 'bold',
+        color: 'gainsboro',
+    },
     image: {
-        width: 75,
+        width: 100,
         aspectRatio: 1,
     },
-    text: {
+    name: {
         fontSize: 20,
-        width: '100%',
-        height: '100%',
-        textAlign: 'center',
-        textAlignVertical: 'center',
+        fontWeight: 'bold',
+        color: 'white',
     },
     type : {
-        marginHorizontal: 5,
+        fontWeight: 'bold',
+        color: 'white',
+        width: 75,
+        borderRadius: 10,
+        paddingHorizontal: 3,
+        paddingVertical: 2,
+        marginRight: 10,
+        textAlign: 'center',
     },
-    view: {
+    view : {
         flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
+        borderRadius: 10,
     }
 });

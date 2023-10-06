@@ -11,9 +11,12 @@ export default function GenerationScreen({ route }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: nb + "ème génération"
-    })
-  });
+      title: nb == 1
+        ? `${nb}ère génération`
+        : `${nb}ème génération`
+    });
+  }, [generation.generation]);
+  
 
   const getGen = () => {
     fetch('https://api-pokemon-fr.vercel.app/api/v1/gen/' + nb)
@@ -25,7 +28,7 @@ export default function GenerationScreen({ route }) {
 
   useEffect(() => {
     getGen();
-  });
+  }, []);
 
   return (
     <View>

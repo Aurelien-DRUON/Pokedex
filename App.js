@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import GenerationScreen from './src/screens/GenerationScreen';
-import PokemonScreen from './src/screens/PokemonScreen';
+import PokemonTabs from './src/screens/PokemonTabs';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +26,7 @@ export default function App() {
         />
         <Stack.Screen
           name="Pokemon"
-          component={PokemonScreen}
+          component={PokemonTabs}
           options={{
             title: "Pokemon"
           }}

@@ -9,14 +9,17 @@ export default function GenerationItem({ generation }) {
         <View style={styles.container}>
             <Pressable
                 style={styles.button}
-                onPress={() => navigation.navigate('Generation', {nb: generation.generation})}
+                onPress={() => navigation.navigate('Generation', { nb: generation.generation })}
             >
                 <Text style={styles.text}>
-                    {generation.generation}ème génération
+                    {generation.generation === 1
+                        ? `${generation.generation}ère génération`
+                        : `${generation.generation}ème génération`}
                 </Text>
             </Pressable>
         </View>
     );
+    
 }
 
 const styles = StyleSheet.create({

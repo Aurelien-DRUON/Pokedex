@@ -1,31 +1,11 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import { colors } from "../assets/colors";
-import { useNavigation } from "@react-navigation/native";
+import { colors } from "../../assets/colors";
 
-
-export default function PokemonScreen({ route }) {
-    const { id } = route.params;
-    const [pokemon, setPokemon] = useState(null);
+export default function About({ route }) {
+    const pokemon = route.params.pokemon;
     const [color, setColor] = useState(colors.Normal);
     const [color2, setColor2] = useState(colors.Normal);
-
-    const navigation = useNavigation();
-
-    useLayoutEffect(() => {
-        if (pokemon != null)
-            navigation.setOptions({
-                title: pokemon.name.fr
-            })
-    }, pokemon);
-
-    const getPokemon = () => {
-        fetch('https://api-pokemon-fr.vercel.app/api/v1/pokemon/' + id)
-            .then((response) => response.json())
-            .then((pokemonData) => {
-                setPokemon(pokemonData);
-            });
-    }
 
     const getColor = () => {
         setColor(colors[pokemon.types[0].name]);
@@ -37,13 +17,13 @@ export default function PokemonScreen({ route }) {
     }
 
     useEffect(() => {
-        getPokemon();
+        //getPokemon();
     }, []);
 
     useEffect(() => {
         if (pokemon != null)
             getColor();
-    }, pokemon);
+    }, [pokemon]);
 
     if (!pokemon) {
         return (
@@ -72,7 +52,7 @@ export default function PokemonScreen({ route }) {
                     <View style={[styles.types, { borderColor: color2 }]}>
                         <Text style={[styles.typetext, { backgroundColor: color }, { borderColor: color2 }]}>Type</Text>
                         {pokemon.types.map((type) => (
-                            <Image source={{ uri: type.image }} style={styles.type} />
+                            <Image source={{ uri: type.image }} style={styles.type} key={type.name}/>
                         ))}
                     </View>
                 </View>
