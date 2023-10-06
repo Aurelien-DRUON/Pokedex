@@ -69,8 +69,8 @@ export default function PokemonScreen({ route }) {
                     <Text style={[styles.text, { backgroundColor: color }, { borderColor: color2 }]}>{pokemon.name.fr}</Text>
                     <Text style={[styles.text, { backgroundColor: color }, { borderColor: color2 }]}>Pokémon n°{pokemon.pokedexId}</Text>
                     <Text style={[styles.text, { backgroundColor: color }, { borderColor: color2 }]}>{pokemon.category}</Text>
-                    <View style={[styles.types, { backgroundColor: color }, { borderColor: color2 }]}>
-                        <Text>Type</Text>
+                    <View style={[styles.types, { borderColor: color2 }]}>
+                        <Text style={[styles.typetext, { backgroundColor: color }, { borderColor: color2 }]}>Type</Text>
                         {pokemon.types.map((type) => (
                             <Image source={{ uri: type.image }} style={styles.type} />
                         ))}
@@ -111,6 +111,11 @@ const styles = StyleSheet.create({
         height: 50,
         marginLeft: 5,
         marginRight: 5,
+    },
+    typetext : {
+        height: '100%',
+        textAlignVertical: 'center',
+        borderRightWidth: 2,
     },
     text: {
         borderBottomWidth: 2,

@@ -31,7 +31,6 @@ export default function GenerationScreen({ route }) {
     <View>
       <FlatList
         data={generation}
-        numColumns={3}
         renderItem={({ item }) => <PokemonItem pokemon={item} />}>
       </FlatList>
     </View>

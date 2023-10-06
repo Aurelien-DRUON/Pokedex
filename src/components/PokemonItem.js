@@ -23,13 +23,12 @@ export default function PokemonItem({ pokemon }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        margin: 5,
     },
     button: {
         borderWidth: 1,
         borderColor: 'black',
         padding: 10,
-        aspectRatio: 1,
+        margin: 5,
     },
     text: {
         fontSize: 20,
