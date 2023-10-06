@@ -1,3 +1,20 @@
-export const colors = [
-
-];
+export const colors = {
+    Acier:'lightsteelblue',
+    Combat:'darkorange',
+    Dragon:'royalblue',
+    Eau:'dodgerblue',
+    Électrik:'yellow',
+    Fée:'hotpink',
+    Feu:'red',
+    Glace:'aqua',
+    Insecte:'olivedrab',
+    Normal:'silver',
+    Plante:'limegreen',
+    Poison:'darkviolet',
+    Psy:'fuchsia',
+    Roche:'gray',
+    Sol:'sienna',
+    Spectre:'purple',
+    Ténèbres:'darkslategray',
+    Vol:'paleturquoise',
+};

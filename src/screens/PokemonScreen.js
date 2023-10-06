@@ -1,9 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { colors } from "../assets/colors";
+import { useNavigation } from "@react-navigation/native";
+
 
 export default function PokemonScreen({ route }) {
     const { id } = route.params;
     const [pokemon, setPokemon] = useState(null);
+    const [color, setColor] = useState(colors.Normal);
+    const [color2, setColor2] = useState(colors.Normal);
+
+    const navigation = useNavigation();
+
+    useLayoutEffect(() => {
+        if (pokemon != null)
+            navigation.setOptions({
+                title: pokemon.name.fr
+            })
+    }, pokemon);
 
     const getPokemon = () => {
         fetch('https://api-pokemon-fr.vercel.app/api/v1/pokemon/' + id)
@@ -13,40 +27,54 @@ export default function PokemonScreen({ route }) {
             });
     }
 
+    const getColor = () => {
+        setColor(colors[pokemon.types[0].name]);
+        if(pokemon.types.length>1) {
+            setColor2(colors[pokemon.types[1].name]);
+        }else {
+            setColor2(colors[pokemon.types[0].name]);
+        }
+    }
+
     useEffect(() => {
         getPokemon();
     }, []);
 
+    useEffect(() => {
+        if (pokemon != null)
+            getColor();
+    }, pokemon);
+
     if (!pokemon) {
         return (
             <View>
-                <Text>Loading...</Text>
+                <Text>Chargement...</Text>
             </View>
         );
     }
-
-    console.log(pokemon.name.fr);
     return (
         <View>
             <ScrollView>
-                <View style={styles.sprites}>
-                    <View style={styles.spritecontainer}>
-                        <Text style={styles.spriteName}>Classique</Text>
+                <View style={[styles.sprites, { borderColor: color2 }]}>
+                    <View style={[styles.spritecontainer, { borderColor: color }]}>
+                        <Text style={[styles.spriteName, { backgroundColor: color }]}>Classique</Text>
                         <Image source={{ uri: pokemon.sprites.regular }} style={styles.sprite} />
                     </View>
-                    <View style={styles.spritecontainer}>
-                        <Text style={styles.spriteName}>Chromatique</Text>
+                    <View style={[styles.spritecontainer, { borderColor: color }]}>
+                        <Text style={[styles.spriteName, { backgroundColor: color }]}>Chromatique</Text>
                         <Image source={{ uri: pokemon.sprites.shiny }} style={styles.sprite} />
                     </View>
                 </View>
-                <Text>{pokemon.name.fr}</Text>
-                <Text>Pokémon n°{pokemon.pokedexId}</Text>
-                <Text>{pokemon.category}</Text>
-                <View style={styles.types}>
-                    <Text>Type</Text>
-                    {pokemon.types.map((type) => (
-                        <Image source={{ uri: type.image }} style={styles.type}/>
-                    ))}
+                <View>
+                    <Text style={[styles.text, { backgroundColor: color }, { borderColor: color2 }]}>{pokemon.name.fr}</Text>
+                    <Text style={[styles.text, { backgroundColor: color }, { borderColor: color2 }]}>Pokémon n°{pokemon.pokedexId}</Text>
+                    <Text style={[styles.text, { backgroundColor: color }, { borderColor: color2 }]}>{pokemon.category}</Text>
+                    <View style={[styles.types, { backgroundColor: color }, { borderColor: color2 }]}>
+                        <Text>Type</Text>
+                        {pokemon.types.map((type) => (
+                            <Image source={{ uri: type.image }} style={styles.type} />
+                        ))}
+                    </View>
                 </View>
             </ScrollView>
         </View>
@@ -55,27 +83,28 @@ export default function PokemonScreen({ route }) {
 
 const styles = StyleSheet.create({
     sprites: {
+        width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
+        borderBottomWidth: 2,
     },
     spritecontainer: {
         borderWidth: 1,
-        borderColor: 'red',
         alignItems: 'center',
     },
     spriteName: {
         width: '100%',
         fontWeight: 'bold',
-        backgroundColor: 'red',
         textAlign: 'center',
     },
     sprite: {
-        width: 150,
-        height: 150,
+        width: '50%',
+        aspectRatio: 1,
     },
     types: {
         flexDirection: 'row',
         alignItems: 'center',
+        borderBottomWidth: 2,
     },
     type: {
         width: 50,
@@ -83,4 +112,10 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
     },
+    text: {
+        borderBottomWidth: 2,
+        height: 50,
+        textAlignVertical: 'center',
+        paddingLeft: 5,
+    }
 });

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 import GenerationItem from "../components/GenerationItem";
 
 export default function HomeScreen() {
@@ -20,11 +20,12 @@ export default function HomeScreen() {
 
   return (
     <View>
-      <ScrollView>
-        {generations.map((generation) => {
-          return (<GenerationItem generation={generation}/>)
-        })}
-      </ScrollView>
+      <FlatList
+        data={generations}
+        numColumns={2}
+        renderItem={({ item }) => <GenerationItem generation={item} />}
+      >
+      </FlatList>
     </View>
   );
 }
